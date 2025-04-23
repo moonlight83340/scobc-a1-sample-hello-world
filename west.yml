@@ -1,0 +1,17 @@
+manifest:
+  projects:
+    - name: zephyr
+      url: https://github.com/zephyrproject-rtos/zephyr
+      revision: 30af4b26968c640d605f6e7853cff4e8daebe4f8
+      path: zephyr
+      west-commands: scripts/west-commands.yml
+      import:
+        name-allowlist:
+          - cmsis
+          - picolibc
+
+    - name: sc-boards
+      url: https://github.com/moonlight83340/sc-boards
+      revision: master
+      path: sc-boards
+
