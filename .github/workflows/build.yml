@@ -1,0 +1,25 @@
+name: Build scobc-a1-sample-hello-world
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Make setup script executable
+      run: chmod +x scripts/setup-zephyr-env.sh
+
+    - name: Run Zephyr environment setup script
+      run: ./scripts/setup-zephyr-env.sh
+
+    - name: Build scobc-a1-sample-hello-world for scsat1_main
+      run: |
+        source zephyrproject/.venv/bin/activate
+        export ZEPHYR_SDK_INSTALL_DIR=$PWD/zephyr-sdk-0.16.8
+        west init -l .
+        west update
+        west build -p always -b scsat1_main . -DBOARD_ROOT=../sc-boards
+
